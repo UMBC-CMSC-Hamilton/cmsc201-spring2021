@@ -279,3 +279,10 @@ else:
         You don't have the ability to catch these exceptions.
         Assume that whenever you ask for input, we will give you the correct type.  
 """
+entered_number = int(input('Enter a positive number: '))
+if entered_number > 0:
+    print('good')
+else:
+    print('bad')
+
+# it still will crash on a string.
