@@ -161,6 +161,12 @@ if __name__ == '__main__':
     new_test_file.close()
 
 """
+    3 things to keep in mind:
+        1) close your files
+        2) only use 'w' mode when you want to erase the file, otherwise 'a'
+        3) newlines, read doesn't strip them, write doesn't add them.  
+            read/write from/to a file needs max control.  Python gives you that control.    
+
     All you need to know is r, w, a.
 
     You probably won't need byte mode unless I specify.
