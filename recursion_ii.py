@@ -39,8 +39,60 @@ def recurisve_palindrome(word):
             return False
 
 
-split_word = input('Enter a word to test for palindromeness: ').lower().split()
-word = ''
-for part in split_word:
-    word += part
-print(recurisve_palindrome(word))
+def recursive_palindrome_test():
+    split_word = input('Enter a word to test for palindromeness: ').lower().split()
+    word = ''
+    for part in split_word:
+        word += part
+    print(recurisve_palindrome(word))
+
+
+"""
+    Project 1 - Mancala <-- 1d list project
+    Project 2 - Battleship <-- 2d list project
+    Project 3 - hmm... <-- recursion project Family Tree stuff, pathfinding, etc.  
+"""
+
+"""
+    A "common" problem... hiring interview type question
+    
+        I want you to display for me all the strings of a's and b's where there are always strictly more a's than b's 
+            "in the front of the string"
+            
+        aab = good
+        aba = bad
+        aaabaabab <-- works
+        aabababab <-- works
+        b <-- nope
+        ba <-- nope
+        baaaaaaa <-- nope
+        aabb <-- nope
+        aaabb <-- yep that works
+"""
+
+
+# default argument is what happens when you don't provide that argument
+def more_as_than_bs(length, difference=0, current_string=''):
+    """
+        there are iterative solutions... BUT... the recursive solution is just infinitely better.
+    :param length: use length to count down to 0, recursively, once it hits zero we'll just print instead of
+        recursing more
+    :param difference: difference = number of a's - number of b's
+    :param current_string:
+    """
+    if not length:
+        print(current_string)
+        # returning nothing, just exit the function at the next line
+        return
+        # equivalent to return None
+
+    # cool
+    more_as_than_bs(length - 1, difference + 1, current_string + 'a')
+    # trickier
+    if difference > 1:
+        more_as_than_bs(length - 1, difference - 1, current_string + 'b')
+
+
+#  more_as_than_bs(int(input()))
+
+
