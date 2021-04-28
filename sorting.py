@@ -131,13 +131,173 @@ def time_test(the_sort):
     sort_time_test(the_sort, 1000)
     print('size 10000')
     sort_time_test(the_sort, 10000)
-    print('size 100000')
-    sort_time_test(the_sort, 100000)
-    print('size 1000000')
-    sort_time_test(the_sort, 1000000)
+    # print('size 100000')
+    # sort_time_test(the_sort, 100000)
+    # print('size 1000000')
+    # sort_time_test(the_sort, 1000000)
+
+
+def merge(first_list, second_list):
+    """
+        first_list, and second-list must be sorted already.
+        :return: sorted combination of the two lists
+
+        sor(t/d)ed list sordid <--> sorted ??
+    """
+
+    result = []
+    first_index = 0
+    second_index = 0
+    while first_index < len(first_list) and second_index < len(second_list):
+        # if the first list at the current index is smaller take that one
+        if first_list[first_index] <= second_list[second_index]:
+            result.append(first_list[first_index])
+            # dont' want to take an element twice
+            first_index += 1
+        else:
+            result.append(second_list[second_index])
+            # dont' want to take an element twice
+            second_index += 1
+
+    # are we done? not quite yet
+    for index in range(first_index, len(first_list)):
+        result.append(first_list[index])
+    # only one will ever go, the loop above, or the loop below.
+    for index in range(second_index, len(second_list)):
+        result.append(second_list[index])
+
+    return result
+
+
+"""
+    [5 3]
+    merge([5], [3]) = [3, 5]
+    
+    [2, 8, 1, 4]
+    [2, 8] [1, 4]
+    [2] [8] [1] [4]
+    Merge([2] [8]) Merge([1] [4])
+    Merge([2, 8], [1, 4])
+    [1, 2, 4, 8]
+    
+    [5, 3, 1, 9, 2]
+    5 // 2 -> 2 [0: 2] 0, 1 [2: 5] 2, 3, 4
+    [5, 3] [1, 9, 2]
+    [5] [3] | [1] [9, 2]
+    [5] [3] | ([1] | [9] [2])
+    [3, 5] | ([1] [2, 9])
+    [3, 5] | ([1, 2, 9])
+    [1, 2, 3, 5, 9]
+"""
+
+
+def merge_sort(the_list):
+    if len(the_list) <= 1:
+        # [] empty list is sorted
+        # [x] sorted
+        return the_list
+
+    # dumbest possible idea, just split list in half, 0 up to half way, half way up to the rest
+    first_half = merge_sort(the_list[0: len(the_list) // 2])
+    second_half = merge_sort(the_list[len(the_list) // 2: len(the_list)])
+    return merge(first_half, second_half)
+
+
+def linear_search(a_list, element):
+    for x in a_list:
+        if x == element:
+            return True
+
+    return False
+
+
+def binary_search(a_list, element):
+    return binary_search_rec(a_list, element, 0, len(a_list))
+
+
+def binary_search_rec(a_list, element, start, end):
+    # this is the midpoint formula
+    place_to_search = (start + end) // 2
+    # print(start, end, place_to_search, a_list[place_to_search])
+    if end <= start:
+        return False
+    if a_list[place_to_search] == element:
+        return True
+    elif element < a_list[place_to_search]:
+        return binary_search_rec(a_list, element, start, place_to_search)
+    else:
+        return binary_search_rec(a_list, element, place_to_search + 1, end)
+
+
+def binary_search_slices(a_list, element):
+    # this is the midpoint formula
+    place_to_search = len(a_list) // 2
+    if not len(a_list):
+        return False
+    if a_list[place_to_search] == element:
+        return True
+    elif element < a_list[place_to_search]:
+        return binary_search_slices(a_list[0: place_to_search], element)
+    else:
+        return binary_search_slices(a_list[place_to_search + 1: len(a_list)], element)
+
+def permutation(n, current, used):
+    if len(used) == n:
+        print(current)
+        return
+
+    for i in range(1, n + 1):
+        if i not in used:
+            permutation(n, current + str(i), used + [i])
+
+
+def binary_search_time_test():
+
+    my_list = []
+    for i in range(10000000):
+        my_list.append(random.randint(0, 10000))
+
+    my_list.sort()  # running in C under python so it'll be faster.
+    print(my_list)
+    # x = int(input('Enter element to search: '))
+    lin_average = 0
+    bin_average = 0
+    for i in range(10):
+        find_me = random.randint(0, 1000)
+        bin_start = time.time()
+        binary_search(my_list, find_me)
+        bin_time = time.time() - bin_start
+
+        lin_start = time.time()
+        linear_search(my_list, find_me)
+        lin_time = time.time() - lin_start
+        bin_average += bin_time
+        lin_average += lin_time
+        print('The binary time was {}, the linear time was {}'.format(bin_time, lin_time))
+
+    bin_average /= 10
+    lin_average /= 10
+    print('The average binary time was {}, the linear average time was {}'.format(bin_average, lin_average))
+
 
 if __name__ == '__main__':
     # sort_test(10, 1000, quick_sort)
     # time_test(bubble_sort)
     # time_test(insertion_sort)
+    # time_test(quick_sort)
+    """
+    print('Bubble')
+    time_test(bubble_sort)
+    print('Selection')
+    time_test(selection_sort)
+    print('Insertion')
+    time_test(insertion_sort)
+    # sort_test(10, 10000, merge_sort)
+    print('Selection')
+    time_test(selection_sort)
+    print('Quick')
     time_test(quick_sort)
+    print('Merge')
+    time_test(merge_sort)
+    """
+    permutation(12, '', [])
