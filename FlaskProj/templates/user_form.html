@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method=post enctype="multipart/form-data">
+    <table>
+        <tr><td>What is your name?<input type="text" name="username"></td></tr>
+        <tr><td>What is your quest? <input type="text" name="quest"></td></tr>
+        <tr><td>What is your favorite color? <input type="text" name="fav_color"></td></tr>
+        <tr><td>What is your favorite food? <input type="text" name="fav_food"></td></tr>
+        <tr><td>What is your favorite movie? <input type="text" name="fav_movie"></td></tr>
+    </table>
+    <input type=submit value="Submit Answers">
+</form>
+<table>
+    {% for answer in answers %}
+        <tr><td>{{answer}}</td></tr>
+    {% endfor %}
+</table>
+</body>
+</html>
