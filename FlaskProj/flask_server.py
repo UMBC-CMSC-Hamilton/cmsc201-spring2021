@@ -63,6 +63,7 @@ def get_image(image_name):
 """
 
 if __name__ == "__main__":
+    # secret is that there's a while loop in this function.
     my_app.run(port=1729)
     # not port 80, 480
     # ports 0 - 32767
