@@ -187,3 +187,18 @@ print(''.join(tricky_list))
             Time = finite
             ThingsWeTeach subset ThingsYouShouldKnow
 """
+
+"""
+    Announcements:
+        The final exam will come out the 14th.  Due the 21st.  
+        
+        MCQ section on blackboard.  
+        
+        Project 3 due this Friday.
+        
+        Try to do the new submit system test.  It's worth 20 pts (basically free points, not extra credit).
+        Replaced the Academic integrity quiz.  
+          
+    Goal: go over the previous semester's final exam.  
+        
+"""
